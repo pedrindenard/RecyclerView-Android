@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.ceep.R;
 import com.app.ceep.dao.NotaDAO;
 import com.app.ceep.model.Nota;
 import com.app.ceep.ui.recyclerview.adapter.ListaNotasAdapter;
+import com.app.ceep.ui.recyclerview.adapter.listener.OnItemClickListener;
 
 import java.util.List;
 
@@ -54,6 +56,7 @@ public class ListaNotasActivity extends AppCompatActivity {
 
     private List<Nota> pegaTodasNotas() {
         NotaDAO dao = new NotaDAO();
+        for(int i=0; i<10; i++) { dao.insere(new Nota("Título " + (i+1), "Descrição " + (i+1))); }
         return dao.todos();
     }
 
@@ -100,5 +103,11 @@ public class ListaNotasActivity extends AppCompatActivity {
     private void configuraAdapter(List<Nota> todasNotas, RecyclerView listaNotas) {
         adapter = new ListaNotasAdapter(this, todasNotas);
         listaNotas.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Nota nota) {
+                Toast.makeText(ListaNotasActivity.this, nota.getTitulo(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
