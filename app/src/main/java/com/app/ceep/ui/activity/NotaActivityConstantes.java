@@ -5,6 +5,8 @@ public interface NotaActivityConstantes {
     String CHAVE_NOTA = "nota";
     String TITULO_APPBAR = "Notas";
     String CHAVE_POSICAO = "posicao";
+    String TITULO_FORMULARIO = "Insere nota";
+    String TITULO_ALTERA_NOTA = "Altera nota";
     int CODIGO_REQUISICAO_ALTERA_NOTA = 2;
     int CODIGO_REQUISICAO_INSERE_NOTA = 1;
     int POSICAO_INVALIDA = -1;

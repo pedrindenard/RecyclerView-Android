@@ -14,6 +14,7 @@ import com.app.ceep.R;
 import com.app.ceep.model.Nota;
 import com.app.ceep.ui.recyclerview.adapter.listener.OnItemClickListener;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.NotaViewHolder> {
@@ -51,7 +52,17 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
     public void altera(int posicao, Nota nota) {
         notas.set(posicao, nota);
-        notifyDataSetChanged();
+        notifyItemChanged(posicao);
+    }
+
+    public void remove(int posicao) {
+        notas.remove(posicao);
+        notifyItemRemoved(posicao);
+    }
+
+    public void troca(int posicaoInicial, int posicaoFinal) {
+        Collections.swap(notas, posicaoInicial, posicaoFinal);
+        notifyItemMoved(posicaoInicial, posicaoFinal);
     }
 
     class NotaViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +78,7 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(nota, getAdapterPosition());
+                    onItemClickListener.onItemClick(nota, getAbsoluteAdapterPosition());
                 }
             });
         }
